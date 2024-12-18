@@ -11,8 +11,15 @@ readline.createInterface({ input: fs.createReadStream('input.txt') })
     firstNumbers.sort((a, b) => a - b);
     secondNumbers.sort((a, b) => a - b);
 
-    const totalDifference = firstNumbers.reduce((acc, n, i) =>
+    const totalDistance = firstNumbers.reduce((acc, n, i) =>
       acc + Math.abs(n - secondNumbers[i]), 0);
 
-    console.log('Somme des écarts absolus :', totalDifference);
+    const frequencyMap = secondNumbers.reduce((map, n) => {
+      map[n] = (map[n] || 0) + 1;
+      return map;
+    }, {});
+    const similarityScore = firstNumbers.reduce((acc, n) =>
+      acc + (n * (frequencyMap[n] || 0)), 0);
+
+    console.log(`totalDistance : ${totalDistance} - similarityScore : ${similarityScore}`);
   });
