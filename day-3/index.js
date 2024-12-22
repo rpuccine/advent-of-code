@@ -6,9 +6,7 @@ const processFile = async (filePath) => {
   let finalSum = 0;
   let enable = true;
 
-  const rl = readline.createInterface({
-    input: fs.createReadStream(filePath),
-  });
+  const rl = readline.createInterface(fs.createReadStream(filePath));
 
   for await (const line of rl) {
     for (const match of line.matchAll(regEx)) {
